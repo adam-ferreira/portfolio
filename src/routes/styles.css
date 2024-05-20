@@ -1,0 +1,30 @@
+@font-face {
+	font-family: 'Humane';
+	src: url('/font/Humane.ttf') format('truetype');
+	font-weight: 100 200 300 400 500 600 700 800 900;
+	font-style: normal;
+}
+
+:root {
+	--font-body: 'Humane';
+	--purple: rgb(95, 69, 242);
+	--pink: rgb(220, 65, 142);
+	--yellow: rgb(255, 227, 117);
+	--white: rgb(252, 251, 245);
+	--orange: rgb(255, 116, 82);
+	font-family: var(--font-body);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	background-color: var(--white);
+	font-size: 2vw;
+}
