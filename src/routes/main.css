@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
 	font-family: 'Humane';
 	src: url('/font/Humane.ttf') format('truetype');
@@ -25,6 +29,4 @@ body {
 	height: 100vh;
 	width: 100vw;
 	display: flex;
-	background-color: var(--white);
-	font-size: 2vw;
 }

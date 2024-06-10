@@ -1,8 +1,9 @@
 <script>
+	import '../main.css';
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
+	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-	import '../styles.css';
 
 	const CAMERA_CONFIG = {
 		NEAR: 0.1,
@@ -10,13 +11,14 @@
 		POSITION_Z: 1
 	};
 
-	const SCALE_FACTOR = 45;
+	const SCALE_FACTOR = 40;
 	const orange = 'rgb(255, 116, 82)';
 	const AMBIENT_LIGHT_COLOR = 0xffffff;
 	const AMBIENT_LIGHT_INTENSITY = 5;
 
 	let container;
 	let adamLogo;
+	let controls;
 
 	onMount(() => {
 		const aspect = container.clientWidth / container.clientHeight;
@@ -34,6 +36,14 @@
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(container.clientWidth, container.clientHeight);
 		container.appendChild(renderer.domElement);
+
+		// If the user is on a mobile device, enable OrbitControls for camera movement
+		if (/Mobi|Android/i.test(window.navigator.userAgent)) {
+			controls = new OrbitControls(camera, renderer.domElement);
+			controls.enableDamping = true;
+			controls.enableZoom = false;
+			controls.enablePan = false;
+		}
 
 		const scene = new THREE.Scene();
 		new THREE.CubeTextureLoader()
@@ -67,15 +77,15 @@
 		};
 		animate();
 
-		const onWindowResize = () => {
-			const aspect = container.clientWidth / container.clientHeight;
-			camera.left = -aspect;
-			camera.right = aspect;
-			camera.top = 1;
-			camera.bottom = -1;
-			camera.updateProjectionMatrix();
-			renderer.setSize(container.clientWidth, container.clientHeight);
-		};
+		// const onWindowResize = () => {
+		// 	const aspect = container.clientWidth / container.clientHeight;
+		// 	camera.left = -aspect;
+		// 	camera.right = aspect;
+		// 	camera.top = 1;
+		// 	camera.bottom = -1;
+		// 	camera.updateProjectionMatrix();
+		// 	renderer.setSize(container.clientWidth, container.clientHeight);
+		// };
 
 		const onMouseMove = (event) => {
 			const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
@@ -85,26 +95,12 @@
 			adamLogo.rotation.x += (-mouseY - adamLogo.rotation.x) * damping;
 			adamLogo.rotation.y += (mouseX - adamLogo.rotation.y) * damping;
 		};
-
-		window.addEventListener('resize', onWindowResize);
 		window.addEventListener('mousemove', onMouseMove);
 
 		return () => {
-			window.removeEventListener('resize', onWindowResize);
 			window.removeEventListener('mousemove', onMouseMove);
 		};
 	});
 </script>
 
-<div class="container" bind:this={container}></div>
-
-<style>
-	.container {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 15%;
-		height: 15vh;
-	}
-</style>
+<div class="relative flex justify-center items-center w-[20%] h-[20%]" bind:this={container}></div>

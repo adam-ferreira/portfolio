@@ -93,6 +93,7 @@
 		font-size: 20em;
 		border-radius: 20px;
 		z-index: 2;
+		font-size: 50vw;
 	}
 
 	@media only screen and (max-width: 600px) {
