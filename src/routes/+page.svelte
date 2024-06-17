@@ -5,6 +5,9 @@
 </script>
 
 <Preloader />
-<div class="flex justify-center items-center w-full h-screen">
+
+<nav class="flex justify-between items-center w-full h-[10vh] my-5">
 	<Logo />
-</div>
+</nav>
+
+<!-- <div class="flex justify-center items-center w-full h-screen"></div> -->

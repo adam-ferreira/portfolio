@@ -11,7 +11,6 @@
 		POSITION_Z: 1
 	};
 
-	const SCALE_FACTOR = 40;
 	const orange = 'rgb(255, 116, 82)';
 	const AMBIENT_LIGHT_COLOR = 0xffffff;
 	const AMBIENT_LIGHT_INTENSITY = 5;
@@ -58,7 +57,7 @@
 		const loader = new GLTFLoader();
 		loader.load('models/adam_ferreira_logo.glb', (gltf) => {
 			adamLogo = gltf.scene;
-			const scale = container.clientWidth / SCALE_FACTOR;
+			const scale = container.clientHeight / 12;
 			adamLogo.scale.set(scale, scale, scale);
 			scene.add(adamLogo);
 
@@ -90,7 +89,7 @@
 		const onMouseMove = (event) => {
 			const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
 			const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-			const damping = 0.1;
+			const damping = 0.5;
 
 			adamLogo.rotation.x += (-mouseY - adamLogo.rotation.x) * damping;
 			adamLogo.rotation.y += (mouseX - adamLogo.rotation.y) * damping;
@@ -103,4 +102,7 @@
 	});
 </script>
 
-<div class="relative flex justify-center items-center w-[20%] h-[20%]" bind:this={container}></div>
+<div
+	class="relative flex justify-center items-center w-[200px] h-[100%]"
+	bind:this={container}
+></div>
