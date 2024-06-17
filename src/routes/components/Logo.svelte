@@ -40,6 +40,7 @@
 		if (/Mobi|Android/i.test(window.navigator.userAgent)) {
 			controls = new OrbitControls(camera, renderer.domElement);
 			controls.enableDamping = true;
+			controls.dampingFactor = 0.05;
 			controls.enableZoom = false;
 			controls.enablePan = false;
 		}
