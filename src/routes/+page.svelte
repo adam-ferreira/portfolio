@@ -3,8 +3,6 @@
 	import Preloader from './components/Preloader.svelte';
 	import Logo from './components/Logo.svelte';
 	import { showPreloader } from './utils/store';
-
-	console.log(showPreloader);
 </script>
 
 {#if $showPreloader}
