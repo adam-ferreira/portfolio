@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	import { preloaderFinished } from '../utils/store.js';
+	import { showPreloader } from '../utils/store.js';
 
 	onMount(() => {
 		gsap.fromTo('.preloader-text', { scale: 5 }, { scale: 1, duration: 1, ease: 'power1.inOut' });
@@ -12,12 +12,7 @@
 				opacity: 1,
 				duration: 1.5,
 				delay: 0.4,
-				ease: 'power1.inOut',
-				onComplete: () => {
-					setTimeout(() => {
-						preloaderFinished.set(true);
-					}, 800);
-				}
+				ease: 'power1.inOut'
 			}
 		);
 		gsap.fromTo(
@@ -29,7 +24,10 @@
 				scale: 0.8,
 				duration: 1,
 				delay: 2,
-				ease: 'expo.in'
+				ease: 'expo.in',
+				onComplete: () => {
+					showPreloader.set(false);
+				}
 			}
 		);
 	});

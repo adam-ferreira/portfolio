@@ -40,7 +40,7 @@
 		if (/Mobi|Android/i.test(window.navigator.userAgent)) {
 			controls = new OrbitControls(camera, renderer.domElement);
 			controls.enableDamping = true;
-			controls.dampingFactor = 0.05;
+			controls.dampingFactor = 0.01;
 			controls.enableZoom = false;
 			controls.enablePan = false;
 		}
@@ -77,15 +77,15 @@
 		};
 		animate();
 
-		// const onWindowResize = () => {
-		// 	const aspect = container.clientWidth / container.clientHeight;
-		// 	camera.left = -aspect;
-		// 	camera.right = aspect;
-		// 	camera.top = 1;
-		// 	camera.bottom = -1;
-		// 	camera.updateProjectionMatrix();
-		// 	renderer.setSize(container.clientWidth, container.clientHeight);
-		// };
+		const onWindowResize = () => {
+			const aspect = container.clientWidth / container.clientHeight;
+			camera.left = -aspect;
+			camera.right = aspect;
+			camera.top = 1;
+			camera.bottom = -1;
+			camera.updateProjectionMatrix();
+			renderer.setSize(container.clientWidth, container.clientHeight);
+		};
 
 		const onMouseMove = (event) => {
 			const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
@@ -95,15 +95,17 @@
 			adamLogo.rotation.x += (-mouseY - adamLogo.rotation.x) * damping;
 			adamLogo.rotation.y += (mouseX - adamLogo.rotation.y) * damping;
 		};
+		window.addEventListener('resize', onWindowResize);
 		window.addEventListener('mousemove', onMouseMove);
 
 		return () => {
+			window.removeEventListener('resize', onWindowResize);
 			window.removeEventListener('mousemove', onMouseMove);
 		};
 	});
 </script>
 
 <div
-	class="relative flex justify-center items-center w-[200px] h-[100%]"
+	class="relative flex justify-center items-center w-[20vh] h-[100%]"
 	bind:this={container}
 ></div>
