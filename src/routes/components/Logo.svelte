@@ -37,7 +37,8 @@
 		container.appendChild(renderer.domElement);
 
 		// If the user is on a mobile device, enable OrbitControls for camera movement
-		if (/Mobi|Android/i.test(window.navigator.userAgent)) {
+		const isMobile = /Mobi|Android/i.test(window.navigator.userAgent);
+		if (isMobile) {
 			controls = new OrbitControls(camera, renderer.domElement);
 			controls.enableDamping = true;
 			controls.dampingFactor = 0.01;
@@ -95,12 +96,16 @@
 			adamLogo.rotation.x += (-mouseY - adamLogo.rotation.x) * damping;
 			adamLogo.rotation.y += (mouseX - adamLogo.rotation.y) * damping;
 		};
-		window.addEventListener('resize', onWindowResize);
-		window.addEventListener('mousemove', onMouseMove);
 
+		window.addEventListener('resize', onWindowResize);
+		if (!isMobile) {
+			window.addEventListener('mousemove', onMouseMove);
+		}
 		return () => {
 			window.removeEventListener('resize', onWindowResize);
-			window.removeEventListener('mousemove', onMouseMove);
+			if (!isMobile) {
+				window.removeEventListener('mousemove', onMouseMove);
+			}
 		};
 	});
 </script>
